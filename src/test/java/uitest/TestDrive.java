@@ -5,15 +5,15 @@ import org.helper.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 
 public class TestDrive {
-    private static final String URL = "https://www.saucedemo.com";
+    //Test that shows
     @Test
-    public void test() throws InterruptedException {
+    public void LoginTest() throws InterruptedException {
         WebDriver driver = DriverFactory.CreateDriver();
 
         driver.get(Pages.LogInPage);
@@ -28,9 +28,16 @@ public class TestDrive {
         password.sendKeys("secret_sauce");
         login.click();
 
+        Assert.assertEquals(driver.getCurrentUrl(), Pages.MainPage);
+
+        WebElement products = driver.findElement(By.className("product_label"));
+        Assert.assertTrue(products.isDisplayed());
+
 
         Thread.sleep(5000);
 
         driver.quit();
     }
+
 }
+
